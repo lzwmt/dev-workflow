@@ -32,7 +32,12 @@ The workflow is prompt-driven. The agent does the work with its native tools
 6. **Acceptance** — Run every checklist item exactly as written and record
    command + exit code + evidence path in ACCEPT.md. Any FAIL stops the
    pipeline. Existence checks only count for file items; behaviour items
-   need behavioural evidence.
+   need behavioural evidence. If a verify command cannot run because the
+   runner or tool is missing, provision the project's own environment
+   first (e.g. create the project venv and install dev dependencies) —
+   never substitute a different way of running it and still call it PASS.
+   If it still cannot run as written, the verdict for that item is
+   *partial*, and a partial verdict blocks the merge.
 7. **Owner-approved merge** — Merge only after the owner confirms (or a
    batch the owner explicitly named as unattended, with review passed,
    acceptance passed, and an independent re-run passed). Push, deploy,
@@ -68,6 +73,24 @@ wait, coordinator reviews the diff directly instead of queuing a review.
 If the real diff exceeds the criteria, run the skipped gates afterwards.
 Never shrink: coordinator's own verification, scripted merge record,
 post-deploy probe.
+
+## Artefacts (fixed list — do not invent more)
+
+Everything lives in `docs/` unless the project already has a docs home:
+
+- `SPEC.md`, `CHECKLIST.md` — spec and acceptance checklist
+- `SPEC-REVIEW.md` — Gate 1 review report
+- `DECISION.md` — Gate 2 decision page + verbatim approval record
+- `frozen/` — Gate 3 freeze package (FREEZE.md + frozen copies)
+- `RESTATED.md`, `BRIEF.md` — Gate 4 restatement and the brief
+- `COMPLETION-REVIEW.md` — Gate 5 review report
+- `ACCEPT.md` — Gate 6 per-item verdicts; quote raw command outputs
+  inside it instead of scattering separate evidence files
+- `RESULT.md`, `DELIVERY.md` — result summary and delivery report
+
+A commit cannot contain its own hash: record merge/commit hashes in
+DELIVERY.md in a follow-up commit, or leave them for the coordinator to
+fill in at merge time. Never rewrite history to insert a hash.
 
 ## Rules that keep this honest
 
