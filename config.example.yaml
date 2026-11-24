@@ -1,0 +1,6 @@
+# Copy to config.yaml and edit. Defaults run with zero external services.
+executor: single        # single | worktree | external-cli
+reviewer: prompt-only   # prompt-only | subagent | external-api
+tracker: local          # local | github | linear
+issue_prefix: DW-
+language: en

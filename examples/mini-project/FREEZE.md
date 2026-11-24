@@ -1,0 +1,3 @@
+# freeze manifest
+67db120a3b9090eb22c8015fc48a4720dcccfc45ed8a9c99cb85d86ef7399472  283 bytes  CHECKLIST.md
+26286b6db15b0910457213383dda9401a6ebbb0aa1232a37ed7d5b0e9b89cd3f  780 bytes  SPEC.md
